@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,27 @@ public class MainActivity extends AppCompatActivity {
 	private RecyclerView.Adapter adapter;
 	private RecyclerView.LayoutManager lManager;
 
+	public static CargarDatosGson almacen;
+	private List<Receta> listadoRecetas;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		// Leemos de origen de datos los elementos
-		List items = new ArrayList();
-		//items.add(new Receta(R.drawable.trabajo, "Trabajo", 2));
-		//items.add(new Receta(R.drawable.casa, "Personal", 3));
+		almacen = new CargarDatosGson(this);
+		listadoRecetas = almacen.listaRecetas();
+		List<String> tags  = new ArrayList<>();
+		for (int i = 0 ; i<10 ; i++){
+			tags.add("tag" + (i+1));
+		}
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 1",5, tags));
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 2",4, tags));
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 3",3, tags));
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 4",2, tags));
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 5",1, tags));
+		listadoRecetas.add(new Receta(R.drawable.ic_launcher,"Título 6",0, tags));
 		// Obtener el Recycler
 		recycler = (RecyclerView) findViewById(R.id.reciclador);
 		recycler.setHasFixedSize(true);
@@ -32,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 		lManager = new LinearLayoutManager(this);
 		recycler.setLayoutManager(lManager);
 		// Crear un nuevo adaptador
-		adapter = new RecetasAdapter(items);
+		adapter = new RecetasAdapter(listadoRecetas);
 		recycler.setAdapter(adapter);
 
 	}
@@ -51,16 +64,6 @@ public class MainActivity extends AppCompatActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 
-		}
-	}
-	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		if (requestCode == SOLICITUD_PERMISO_WRITE_CALL_LOG) {
-			if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				guardarEnGson();
-			} else {
-				Toast.makeText(this, "Sin el permiso, no puedo realizar la acción", Toast.LENGTH_SHORT).show();
-			}
 		}
 	}
 }

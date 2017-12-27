@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
  */
 
 public class Permisos {
+
     public static void solicitarPermiso(final String permiso, String justificacion, final int requestCode, final Activity actividad) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
                 permiso)){

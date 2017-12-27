@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#9A0007</color>
     <color name="colorAccent">#FF6659</color>
     <color name="colorTextoBlanco">#FFFFFF</color>
+    <color name="colorTextoClaro">#585858</color>
     <color name="colorTextoNegro">#000000</color>
     <color name="colorFondo">#FFFFFF</color>
+    <color name="colorFondoCard">#B85E35</color>
 </resources>

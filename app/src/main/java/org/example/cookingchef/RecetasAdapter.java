@@ -48,7 +48,8 @@ public class RecetasAdapter extends RecyclerView.Adapter <RecetasAdapter.ListaVi
 	public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
 		viewHolder.imagen.setImageResource(items.get(i).getImagen());
 		viewHolder.titulo.setText(items.get(i).getTitulo());
-		viewHolder.dificultad.setNumStars(items.get(i).getDificultad());
-		viewHolder.tags.setText("Tags:" + items.get(i).getTags());
+		//viewHolder.dificultad.setNumStars(items.get(i).getDificultad());
+		viewHolder.dificultad.setRating(items.get(i).getDificultad());
+		viewHolder.tags.setText("Tags: " + items.get(i).getTags());
 	}
 }

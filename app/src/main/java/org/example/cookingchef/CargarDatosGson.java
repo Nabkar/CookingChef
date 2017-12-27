@@ -1,17 +1,8 @@
 package org.example.cookingchef;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,14 +20,14 @@ public class CargarDatosGson {
     private Gson gson = new Gson();
     private Type type = new TypeToken<List<Receta>>(){}.getType();
 
-    private int SOLICITUD_PERMISO_WRITE_EXTERNAL_STORAGE = 1;
+    private String PREFERENCIAS = "recetas";
+    private Context context;
+
+    public CargarDatosGson(Context context) {
+        this.context = context;
+    }
 
     public void guardarReceta(Receta receta){
-        String estadoSD = Environment.getExternalStorageState();
-        if (!estadoSD.equals(Environment.MEDIA_MOUNTED)) {
-            Snackbar.make(vista, "No existe almacenamiento externo", Snackbar.LENGTH_SHORT).show();
-            return;
-        }
         fichero = leerDeFichero();
         ArrayList<Receta> recetas;
         if(fichero == null){
@@ -52,14 +43,7 @@ public class CargarDatosGson {
 
     public List<Receta> listaRecetas() {
         List<Receta> salida = new ArrayList<>();
-        String estadoSD = Environment.getExternalStorageState();
-        if (!estadoSD.equals(Environment.MEDIA_MOUNTED) && !estadoSD.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
-            Toast.makeText(context, "No puedo leer en la memoria externa",
-                    Toast.LENGTH_LONG).show();
-            return salida;
-        }
         fichero = leerDeFichero();
-
         ArrayList<Receta> recetas;
         if(fichero == null){
             recetas = new ArrayList<>();
@@ -72,19 +56,18 @@ public class CargarDatosGson {
         return salida;
     }
 
+    // Guardamos el fichero en preferencias para que la información no sea dependiente de la ejecución
     private void guardarEnFichero(String fichero){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-
-        } else {
-            Permisos.solicitarPermiso(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    "Es necesario activar el permiso de almacenamiento externo de datos para poder guardar las recetas.",
-                    SOLICITUD_PERMISO_WRITE_EXTERNAL_STORAGE, this);
-        }
+        SharedPreferences preferencias = context.getSharedPreferences(PREFERENCIAS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putString("recetas", fichero);
+        editor.apply();
     }
 
     private String leerDeFichero(){
-
+        String result;
+        SharedPreferences preferencias = context.getSharedPreferences(PREFERENCIAS, Context.MODE_PRIVATE);
+        result = preferencias.getString("recetas" , null);
+        return result;
     }
 }

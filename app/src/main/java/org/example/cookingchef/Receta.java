@@ -99,4 +99,17 @@ public class Receta {
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
+
+	@Override
+	public String toString() {
+		return "Receta{" +
+				"imagen=" + imagen +
+				", titulo='" + titulo + '\'' +
+				", dificultad=" + dificultad +
+				", tags=" + tags +
+				", ingredientes=" + ingredientes +
+				", pasos=" + pasos +
+				", observaciones='" + observaciones + '\'' +
+				'}';
+	}
 }
