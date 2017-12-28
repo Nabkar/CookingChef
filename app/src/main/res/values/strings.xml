@@ -3,4 +3,25 @@
     <string name="buscar">Buscar</string>
     <string name="not_tags">Sin tags</string>
     <string name="imagen_descripcion">Imagen de la receta</string>
+    <string name="opc_menu_crear_receta">Crear nueva receta</string>
+    <string name="opc_menu_importar_receta">Importar receta</string>
+    <string name="opc_menu_salir">Salir</string>
+    <string name="drawer_open">navigation drawer abierto</string>
+    <string name="drawer_close">navigation drawer cerrado</string>
+    <string name="comensales">Nº comensales</string>
+    <string name="ingredientes">¿Qué necesito?</string>
+    <string name="ingredientes_hint">Pon los ingredientes que forman tu manjar...</string>
+    <string name="pasos">Al lio</string>
+    <string name="pasos_hint">Escribe como conseguir que todos los ingredientes formen ese plato</string>
+    <string name="tips">Trucos</string>
+    <string name="tips_hint">Todo buen cocinero tiene sus truquitos. ¿Cuál te ha ayudado en esta receta?</string>
+    <string name="tags">Tags</string>
+    <string name="tags_hint">¿Qué palabras describen tu receta? Estas servirán para buscar tu plato de entre todos los demás</string>
+
+    <!-- Transiciones -->
+    <string name="transicion_titulo_receta">transition:TEXT</string>
+    <string name="transicion_imagen_receta">transition:IMG</string>
+    <string name="transicion_dificultad_receta">transition:RATINGBAR</string>
+    <string name="transicion_tags_receta">transition:TEXT</string>
+
 </resources>

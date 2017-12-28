@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".principal.ListadoRecetasActivity">
 
-    <item android:id="@+id/search"
+    <item android:id="@+id/mbuscar"
         android:title="@string/buscar"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_buscar"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.widget.SearchView" />
 

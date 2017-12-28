@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_crear"
+            android:icon="@drawable/ic_libreta"
+            android:title="@string/opc_menu_crear_receta" />
+        <item
+            android:id="@+id/nav_importar"
+            android:icon="@drawable/ic_arrow_down"
+            android:title="@string/opc_menu_importar_receta" />
+    </group>
+    <item
+        android:id="@+id/nav_salir"
+        android:icon="@drawable/ic_salir"
+        android:title="@string/opc_menu_salir" />
+    <!--<item android:title="Acciones adicionales">
+        <menu>
+            <item android:id="@+id/nav_preferencias"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="Preferencias" />
+            <item android:id="@+id/nav_compartir"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Compartir" />
+        </menu>
+    </item>-->
+</menu>

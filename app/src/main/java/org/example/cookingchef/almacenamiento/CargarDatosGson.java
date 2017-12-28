@@ -1,11 +1,12 @@
-package org.example.cookingchef;
+package org.example.cookingchef.almacenamiento;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.example.cookingchef.modelos.Receta;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class CargarDatosGson {
             recetas = gson.fromJson(fichero,type);
         }
 
-        recetas.add(new Receta(receta));
+        recetas.add(receta);
         fichero = gson.toJson(recetas,type);
         guardarEnFichero(fichero);
     }

@@ -1,11 +1,14 @@
 package org.example.cookingchef;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
+
+import org.example.cookingchef.principal.ListadoRecetasActivity;
 
 /**
  * Created by JulioM on 26/12/2017.
@@ -41,9 +44,9 @@ public class SplashScreenActivity extends AwesomeSplash {
 	@Override
 	public void animationsFinished() {
 
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, ListadoRecetasActivity.class);
 
-		startActivity(intent);
+		startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 		//transit to another activity here
 		//or do whatever you want
 	}
