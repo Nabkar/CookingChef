@@ -31,13 +31,25 @@ public class CargarDatosGson {
     public void guardarReceta(Receta receta){
         fichero = leerDeFichero();
         ArrayList<Receta> recetas;
+        int indice = 0;
         if(fichero == null){
             recetas = new ArrayList<>();
         } else {
             recetas = gson.fromJson(fichero,type);
         }
 
-        recetas.add(receta);
+        for (int i=0 ; i<recetas.size() ; i++){
+            if (recetas.get(i).getIdReceta() == receta.getIdReceta()){
+                recetas.remove(i);
+                indice = i;
+                break;
+            }
+        }
+        if (indice!=0) {
+            recetas.add(indice, receta);
+        } else {
+            recetas.add(receta);
+        }
         fichero = gson.toJson(recetas,type);
         guardarEnFichero(fichero);
     }

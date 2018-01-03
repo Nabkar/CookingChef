@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Cooking Chef</string>
     <string name="buscar">Buscar</string>
+    <string name="editar">Editar</string>
+    <string name="guardar">Guardar</string>
     <string name="not_tags">Sin tags</string>
     <string name="imagen_descripcion">Imagen de la receta</string>
     <string name="opc_menu_crear_receta">Crear nueva receta</string>
@@ -17,11 +19,16 @@
     <string name="tips_hint">Todo buen cocinero tiene sus truquitos. ¿Cuál te ha ayudado en esta receta?</string>
     <string name="tags">Tags</string>
     <string name="tags_hint">¿Qué palabras describen tu receta? Estas servirán para buscar tu plato de entre todos los demás</string>
+    <string name="de">de</string>
+    <string name="func_pte">La funcionalidad todavía no está disponible</string>
+    <string name="titulo">Título</string>
+    <string name="selecciona_imagen">Elige la foto de tu plato</string>
 
     <!-- Transiciones -->
     <string name="transicion_titulo_receta">transition:TEXT</string>
     <string name="transicion_imagen_receta">transition:IMG</string>
     <string name="transicion_dificultad_receta">transition:RATINGBAR</string>
     <string name="transicion_tags_receta">transition:TEXT</string>
+    <string name="transition_name_fab">transition:FAB</string>
 
 </resources>

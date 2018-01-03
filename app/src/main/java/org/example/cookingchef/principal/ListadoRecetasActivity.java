@@ -16,16 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.example.cookingchef.detalle_receta.DetalleRecetaActivity;
 import org.example.cookingchef.R;
 import org.example.cookingchef.almacenamiento.CargarDatosGson;
 import org.example.cookingchef.modelos.Receta;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ListadoRecetasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,24 +41,25 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 
 		// Leemos de origen de datos los elementos
 		almacen = new CargarDatosGson(this);
-		List<String> tags  = new ArrayList<>();
+
+		/*List<String> tags  = new ArrayList<>();
 		for (int i = 0 ; i<10 ; i++){
 			tags.add("tag" + (i+1));
 		}
-		Map<String,String> ingredientes = new HashMap<>();
-		ingredientes.put("Patata","2 unidades");
-		ingredientes.put("Agua","1 vaso");
+		List<Ingrediente> ingredientes = new ArrayList<>();
+		ingredientes.add(new Ingrediente("Patata",2, "unidades"));
+		ingredientes.add(new Ingrediente("Agua",150 ,"ml"));
 
-		Map<String,String> pasos = new HashMap<>();
-		pasos.put("Paso 1","Lava las patatas");
-		pasos.put("Paso 2","Pela las patatas");
-		pasos.put("Paso 3","Ponlas en agua");
-		almacen.guardarReceta(new Receta(1,R.drawable.ic_launcher,"Título 1",5, tags, ingredientes, pasos, "Estas son las observaciones", 2));
-		almacen.guardarReceta(new Receta(2,R.drawable.ic_launcher,"Título 2",4, tags, ingredientes, pasos, "Estas son las observaciones", 2));
-		almacen.guardarReceta(new Receta(3,R.drawable.ic_launcher,"Título 3",3, tags, ingredientes, pasos, "Estas son las observaciones", 2));
-		almacen.guardarReceta(new Receta(4,R.drawable.ic_launcher,"Título 4",2, tags, ingredientes, pasos, "Estas son las observaciones", 2));
-		almacen.guardarReceta(new Receta(5,R.drawable.ic_launcher,"Título 5",1, tags, ingredientes, pasos, "Estas son las observaciones", 2));
-		almacen.guardarReceta(new Receta(6,R.drawable.ic_launcher,"Título 6",0, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		List<Paso> pasos = new ArrayList<>();
+		pasos.add(new Paso(1,"Lava las patatas"));
+		pasos.add(new Paso(2,"Pela las patatas"));
+		pasos.add(new Paso(3,"Ponlas en agua"));
+		almacen.guardarReceta(new Receta(1,R.drawable.ic_libreta,"Título 1",5, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		almacen.guardarReceta(new Receta(2,R.drawable.ic_libreta,"Título 2",4, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		almacen.guardarReceta(new Receta(3,R.drawable.ic_libreta,"Título 3",3, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		almacen.guardarReceta(new Receta(4,R.drawable.ic_libreta,"Título 4",2, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		almacen.guardarReceta(new Receta(5,R.drawable.ic_libreta,"Título 5",1, tags, ingredientes, pasos, "Estas son las observaciones", 2));
+		almacen.guardarReceta(new Receta(6,R.drawable.ic_libreta,"Título 6",0, tags, ingredientes, pasos, "Estas son las observaciones", 2));*/
 
 		listadoRecetas = almacen.listaRecetas();
 
@@ -81,6 +80,7 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 					@Override public void onItemClick(View v, int position) {
 						Intent intent = new Intent(ListadoRecetasActivity.this,	DetalleRecetaActivity.class);
 						Receta receta = listadoRecetas.get(position);
+						intent.putExtra("idReceta", receta.getIdReceta());
 						intent.putExtra("receta_card", receta);
 						intent.putExtra("estado", "LECTURA");
 						//startActivity(intent);
@@ -89,11 +89,11 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 										new Pair<View, String>(v.findViewById(R.id.titulo),
 												getString(R.string.transicion_titulo_receta)),
 										new Pair<View, String>(v.findViewById(R.id.imagen),
-												getString(R.string.transicion_imagen_receta))/*,
+												getString(R.string.transicion_imagen_receta)),
 										new Pair<View, String>(v.findViewById(R.id.dificultad),
 												getString(R.string.transicion_dificultad_receta)),
 										new Pair<View, String>(v.findViewById(R.id.tags),
-												getString(R.string.transicion_tags_receta))*/);
+												getString(R.string.transicion_tags_receta)));
 						ActivityCompat.startActivity(ListadoRecetasActivity.this, intent, options
 								.toBundle());
 					}
@@ -115,6 +115,13 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 		navigationView.setNavigationItemSelectedListener(this);
 
 	}
+	@Override
+	public void onResume(){
+		super.onResume();
+		listadoRecetas = almacen.listaRecetas();
+		adapter = new ListadoRecetasAdapter(listadoRecetas);
+		recycler.setAdapter(adapter);
+	}
 
 	// Métodos para el navigation drawer
 	@Override
@@ -122,13 +129,23 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 		int id = item.getItemId();
 		switch (id) {
 			case R.id.nav_crear:
-			//Lanzamos la actividad de crear nueva receta_card
+				//Lanzamos la actividad de crear nueva receta_card
+				Intent intent = new Intent(ListadoRecetasActivity.this,	DetalleRecetaActivity.class);
+				int idReceta = listadoRecetas.size() + 1;
+				intent.putExtra("idReceta", idReceta);
+				intent.putExtra("estado", "EDICION");
+				startActivity(intent);
+				break;
 			case R.id.nav_importar:
-			//Lanzamos la actividad de importar receta_card
+				//Lanzamos la actividad de importar receta_card
+				Toast.makeText(ListadoRecetasActivity.this,getResources().getString(R.string.func_pte),Toast.LENGTH_LONG);
+				break;
 			default:
-			//Salir
+				//Salir
+				finish();
 		}
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawer.clearFocus();
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
 	}
@@ -158,13 +175,5 @@ public class ListadoRecetasActivity extends AppCompatActivity implements Navigat
 				return super.onOptionsItemSelected(item);
 
 		}
-	}
-
-	public List<Receta> getListadoRecetas() {
-		return listadoRecetas;
-	}
-
-	public void setListadoRecetas(List<Receta> listadoRecetas) {
-		this.listadoRecetas = listadoRecetas;
 	}
 }

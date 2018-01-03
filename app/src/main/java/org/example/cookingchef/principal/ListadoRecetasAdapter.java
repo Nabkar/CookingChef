@@ -34,13 +34,6 @@ public class ListadoRecetasAdapter extends RecyclerView.Adapter <ListadoRecetasA
 			dificultad = (RatingBar) v.findViewById(R.id.dificultad);
 			tags = (TextView) v.findViewById(R.id.tags);
 		}
-
-		public void bind (View v) {
-			imagen = v.findViewById(R.id.imagen);
-			titulo = v.findViewById(R.id.titulo);
-			dificultad = v.findViewById(R.id.dificultad);
-			tags = v.findViewById(R.id.tags);
-		}
 	}
 
 	public ListadoRecetasAdapter(List<Receta> items) {
@@ -64,6 +57,9 @@ public class ListadoRecetasAdapter extends RecyclerView.Adapter <ListadoRecetasA
 		viewHolder.titulo.setText(items.get(i).getTitulo());
 		//viewHolder.dificultad.setNumStars(items.get(i).getDificultad());
 		viewHolder.dificultad.setRating(items.get(i).getDificultad());
-		viewHolder.tags.setText("Tags: " + items.get(i).getTags());
+		viewHolder.tags.setText("Tags: ");
+		for (String s : items.get(i).getTags()){
+			viewHolder.tags.setText(viewHolder.tags.getText() + s + " ");
+		}
 	}
 }

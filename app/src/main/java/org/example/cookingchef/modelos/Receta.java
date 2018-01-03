@@ -1,6 +1,7 @@
 package org.example.cookingchef.modelos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,24 +15,24 @@ public class Receta implements Serializable{
 	private String titulo;
 	private int dificultad; // Entero entre 0 y 5
 	private List<String> tags;
-	private Map<String,String> ingredientes;
-	private Map<String,String> pasos;
+	private List<String> ingredientes;
+	private List<String> pasos;
 	private String observaciones;
 	private int comensales;
 
-	/*public Receta(Receta receta) {
-		this.idReceta = receta.getIdReceta();
-		this.imagen = receta.getImagen();
-		this.titulo = receta.getTitulo();
-		this.dificultad = receta.getDificultad();
-		this.tags = receta.getTags();
-		this.ingredientes = receta.getIngredientes();
-		this.pasos = receta.getPasos();
-		this.observaciones = receta.getObservaciones();
-		this.comensales = receta.getComensales();
-	}*/
+	public Receta(int idReceta, int imagen){
+		this.idReceta = idReceta;
+		this.imagen = imagen;
+		this.titulo = "";
+		this.dificultad = 0;
+		this.tags = new ArrayList<>();
+		this.ingredientes = new ArrayList<>();
+		this.pasos = new ArrayList<>();
+		this.observaciones = null;
+		this.comensales = 2;
+	}
 
-	public Receta (int idReceta, int imagen, String titulo, int dificultad, List<String> tags, Map<String,String> ingredientes, Map<String,String> pasos, String observaciones, int comensales ){
+	public Receta (int idReceta, int imagen, String titulo, int dificultad, List<String> tags, List<String> ingredientes, List<String> pasos, String observaciones, int comensales ){
 		this.idReceta = idReceta;
 		this.imagen = imagen;
 		this.titulo = titulo;
@@ -83,19 +84,19 @@ public class Receta implements Serializable{
 		this.tags = tags;
 	}
 
-	public Map<String, String> getIngredientes() {
+	public List<String> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Map<String, String> ingredientes) {
+	public void setIngredientes(List<String> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 
-	public Map<String, String> getPasos() {
+	public List<String> getPasos() {
 		return pasos;
 	}
 
-	public void setPasos(Map<String, String> pasos) {
+	public void setPasos(List<String> pasos) {
 		this.pasos = pasos;
 	}
 
@@ -107,15 +108,15 @@ public class Receta implements Serializable{
 		this.observaciones = observaciones;
 	}
 
-	public int getComensales() {
-		return comensales;
+	public String getComensales() {
+		return String.valueOf(comensales);
 	}
 
 	public void setComensales(int comensales) {
 		this.comensales = comensales;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Receta{" +
 				"imagen=" + imagen +
@@ -126,5 +127,6 @@ public class Receta implements Serializable{
 				", pasos=" + pasos +
 				", observaciones='" + observaciones + '\'' +
 				'}';
-	}
+	}*/
+
 }
